@@ -8,6 +8,6 @@ namespace WeatherMonitoringAndReportingService.Bots
 {
     public interface IBotConfigLoader
     {
-        public IEnumerable<IBot> LoadBotConfig(string filePath, IBotFactory botFactory);
+        public IEnumerable<IBotConfig> LoadBotConfig(string filePath);
     }
 }

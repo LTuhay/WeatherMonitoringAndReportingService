@@ -15,7 +15,7 @@ namespace WeatherMonitoringAndReportingService.WeatherData_
 
         void AddBotObserver(IBot bot);
         void RemoveBotObserver(IBot bot);
-        void TriggerBotUpdates();
+ //       void TriggerBotUpdates();
 
     }
 }

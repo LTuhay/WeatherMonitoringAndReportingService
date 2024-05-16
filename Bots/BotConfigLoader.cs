@@ -18,7 +18,7 @@ namespace WeatherMonitoringAndReportingService.Bots
             _serviceProvider = serviceProvider;
         }
 
-        public IEnumerable<IBot> LoadBotConfig(string filePath, IBotFactory botFactory)
+        public IEnumerable<IBotConfig> LoadBotConfig(string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -28,7 +28,7 @@ namespace WeatherMonitoringAndReportingService.Bots
             string jsonContent = File.ReadAllText(filePath);
             JObject botConfigDict = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
-            List<IBot> bots = new List<IBot>();
+            List<IBotConfig> botConfigs = new List<IBotConfig>();
 
             foreach (var botConfigEntry in botConfigDict)
             {
@@ -37,19 +37,19 @@ namespace WeatherMonitoringAndReportingService.Bots
 
                 BotConfig botConfig = new BotConfig
                 {
-                    Type = "WeatherMonitoringAndReportingService.Bots." + botName, 
+                    Type = botName,
                     Enabled = botConfigJson.Value<bool>("enabled"),
                     HumidityThreshold = botConfigJson.Value<decimal>("humidityThreshold"),
                     TemperatureThreshold = botConfigJson.Value<decimal>("temperatureThreshold"),
                     Message = botConfigJson.Value<string>("message")
                 };
 
-                IBot bot = botFactory.CreateBot(botConfig);
-                bots.Add(bot);
+                botConfigs.Add(botConfig);
             }
 
-            return bots;
+            return botConfigs;
         }
+
     }
 
 

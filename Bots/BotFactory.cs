@@ -9,27 +9,17 @@ namespace WeatherMonitoringAndReportingService.Bots
     public class BotFactory : IBotFactory
     {
 
-        public IBot CreateBot(BotConfig botConfig)
+        public IBot CreateBot(IBotConfig botConfig)
         {
-
-            Type botType = Type.GetType(botConfig.Type);
-
-            if (botType == null || !typeof(IBot).IsAssignableFrom(botType))
+            IBotStrategy strategy = botConfig.Type switch
             {
-                throw new ArgumentException($"Invalid bot type: {botConfig.Type}");
-            }
+                "RainBot" => new RainBotStrategy(botConfig.HumidityThreshold),
+                "SunBot" => new SunnyBotStrategy(botConfig.TemperatureThreshold),
+                "SnowBot" => new SnowBotStrategy(botConfig.TemperatureThreshold),
+                _ => throw new ArgumentException($"Invalid bot type: {botConfig.Type}")
+            }; 
 
-
-            IBot bot = (IBot)Activator.CreateInstance(botType);
-
-
-            bot.Enabled = botConfig.Enabled;
-            bot.Message = botConfig.Message;
-            bot.TemperatureThreshold = botConfig.TemperatureThreshold;
-            bot.HumidityThreshold = botConfig.HumidityThreshold;
-
-
-            return bot;
+            return new Bot(strategy, botConfig.Message);
         }
 
 

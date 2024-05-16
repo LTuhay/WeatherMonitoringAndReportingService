@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeatherMonitoringAndReportingService.Bots
 {
-    public class BotConfig
+    public class BotConfig : IBotConfig
     {
         public string Type { get; set; }
         public bool Enabled { get; set; }

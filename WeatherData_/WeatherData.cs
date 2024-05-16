@@ -19,13 +19,14 @@ namespace WeatherMonitoringAndReportingService.WeatherData_
             _bots.Add(bot);
         }
 
-        void IWeatherData.TriggerBotUpdates()
-        {
-            foreach (var bot in _bots)
-            {
-                bot.CheckCondition(Temperature, Humidity);
-            }
-        }
+        //void IWeatherData.TriggerBotUpdates()
+        //{
+        //    foreach (var bot in _bots)
+        //    {
+
+        //        bot.CheckCondition(Temperature, Humidity);
+        //    }
+        //}
 
         void IWeatherData.RemoveBotObserver(IBot bot)
         {
