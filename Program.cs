@@ -14,11 +14,11 @@ public class Program
             .AddTransient<IWeatherDataProvider, WeatherDataProvider>()
             .BuildServiceProvider();
 
-        // Cargar la configuración de los bots
+
         IBotConfigLoader botConfigLoader = new BotConfigLoader(serviceProvider);
         IEnumerable<IBotConfig> botConfigs = botConfigLoader.LoadBotConfig(@"..\..\..\botConfig.json");
 
-        // Crear los bots y registrarlos como observadores del proveedor de datos climáticos
+
         IWeatherDataProvider weatherDataProvider = serviceProvider.GetService<IWeatherDataProvider>();
         IBotFactory botFactory = serviceProvider.GetService<IBotFactory>();
 
@@ -28,13 +28,9 @@ public class Program
             weatherDataProvider.RegisterObserver(bot);
         }
 
-        // Obtener la configuración del clima y actualizar los datos del proveedor de datos climáticos
-        Console.WriteLine("Ingrese la configuración del clima en formato JSON o XML:");
-        string userInput = Console.ReadLine();
+        IEneterWeatherData enterWeatherData = new EnterWeatherData();
+        IWeatherData weatherData = enterWeatherData.GetWeatherData();
 
-        IGetWeatherAdapter adapterType = new GetWeatherAdapter();
-        IWeatherDataEnterAdapter adapter = adapterType.GetWeatherDataEnterAdapter(userInput);
-        IWeatherData weatherData = adapter.EnterWeatherData(userInput);
 
         weatherDataProvider.SetWeatherData(weatherData);
     }

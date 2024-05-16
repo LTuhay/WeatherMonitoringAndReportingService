@@ -13,9 +13,6 @@ namespace WeatherMonitoringAndReportingService.WeatherData_
         decimal Temperature { get; set; }
         decimal Humidity { get; set; }
 
-        void AddBotObserver(IBot bot);
-        void RemoveBotObserver(IBot bot);
- //       void TriggerBotUpdates();
 
     }
 }

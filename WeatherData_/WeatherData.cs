@@ -14,23 +14,5 @@ namespace WeatherMonitoringAndReportingService.WeatherData_
         public decimal Temperature {  get; set; }
         public decimal Humidity {  get; set; }
 
-        void IWeatherData.AddBotObserver(IBot bot)
-        {
-            _bots.Add(bot);
-        }
-
-        //void IWeatherData.TriggerBotUpdates()
-        //{
-        //    foreach (var bot in _bots)
-        //    {
-
-        //        bot.CheckCondition(Temperature, Humidity);
-        //    }
-        //}
-
-        void IWeatherData.RemoveBotObserver(IBot bot)
-        {
-            _bots.Remove(bot);
-        }
     }
 }
